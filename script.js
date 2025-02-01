@@ -1,69 +1,43 @@
-//** new code  */
+document.body.addEventListener("click", async () => {
+   await Tone.start();  // Ensure AudioContext is ready after user interaction
+   console.log("AudioContext started");
 
-    const synth = new Tone.Synth().toDestination();
-    const keys = document.querySelectorAll(".key");
+   // Load a high-quality piano sound sample
+   const piano = new Tone.Sampler({
+       urls: {
+           C4: "./audio-samples/C4.mp3",
+           D4: "./audio-samples/D4.mp3"
+       },
+       release: 1, // Sustain for a more natural fade-out
+       baseUrl: ""
+   }).toDestination();
 
-    // Mapping keyboard keys to musical notes
-    const keyToNoteMap = {
-        a: "C4", w: "C#4", s: "D4", e: "D#4", d: "E4",
-        f: "F4", t: "F#4", g: "G4", y: "G#4", h: "A4",
-        u: "A#4", j: "B4", k: "C5"
-    };
+   const keyToNoteMap = {
+       a: "C4", w: "C#4", s: "D4", e: "D#4", d: "E4",
+       f: "F4", t: "F#4", g: "G4", y: "G#4", h: "A4",
+       u: "A#4", j: "B4", k: "C5"
+   };
 
-    // Prevent multiple triggers while holding a key
-    let activeKeys = new Set();
+   document.addEventListener("keydown", (event) => {
+       const key = event.key.toLowerCase();
+       if (keyToNoteMap[key]) {
+           piano.triggerAttack(keyToNoteMap[key]);
+       }
+   });
 
-    function playNote(note, key) {
-        if (!activeKeys.has(key)) {
-            activeKeys.add(key);
-            synth.triggerAttack(note);
-            document.querySelector(`[data-key="${key}"]`)?.classList.add("active");
-        }
-    }
+   document.addEventListener("keyup", (event) => {
+       const key = event.key.toLowerCase();
+       if (keyToNoteMap[key]) {
+           piano.triggerRelease(keyToNoteMap[key]);
+       }
+   });
+});
 
-    function stopNote(key) {
-        activeKeys.delete(key);
-        synth.triggerRelease();
-        document.querySelector(`[data-key="${key}"]`)?.classList.remove("active");
-    }
-
-    // Handle keyboard input
-    document.addEventListener("keydown", (event) => {
-        const key = event.key.toLowerCase();
-        if (keyToNoteMap[key]) {
-            // Ensure Tone.js AudioContext is started
-            Tone.start().then(() => playNote(keyToNoteMap[key], key));
-        }
-    });
-
-    document.addEventListener("keyup", (event) => {
-        const key = event.key.toLowerCase();
-        if (keyToNoteMap[key]) {
-            stopNote(key);
-        }
-    });
-
-    // Handle mouse click on keys
-    keys.forEach((key) => {
-        key.addEventListener("mousedown", () => {
-            const note = key.dataset.note;
-            const keyChar = key.dataset.key;
-            Tone.start().then(() => playNote(note, keyChar));
-        });
-
-        key.addEventListener("mouseup", () => {
-            stopNote(key.dataset.key);
-        });
-
-        key.addEventListener("mouseleave", () => {
-            stopNote(key.dataset.key);
-        });
-    });
 
 
 /* current step: 
-    -- use the recommended way to add event handlers to the piano keys
-    -- udnerstnd how firing off sounds exactly works in Tone.js for the best piano sounds
-    -- combine the keyboard buttons and piano sounds til you get 
+  -- The playback system is nearly complete. I need to figure out how to increase the quality of the playback sound
+  -- I think that might be enough for this project? I think I'll be ready to implement this in Harmony Hub and I'll simply take care of the CSS there
+
 
 */
