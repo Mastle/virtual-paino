@@ -1,6 +1,0 @@
-{
-  "type": "module",
-  "dependencies": {
-    "tone": "^15.0.4"
-  }
-}

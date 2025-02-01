@@ -4,28 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
+    <script src="https://unpkg.com/tone"></script>
     <script defer src="./script.js" type="module"></script>
     <title>Document</title>
   </head>
   <body>
     <div class="piano">
-      <div class="key white" data-note="C">C</div>
-      <div class="key black" data-note="C#">C#</div>
-      <div class="key white" data-note="D">D</div>
-      <div class="key black" data-note="D#">D#</div>
-      <div class="key white" data-note="E">E</div>
-      <div class="key white" data-note="F">F</div>
-      <div class="key black" data-note="F#">F#</div>
-      <div class="key white" data-note="G">G</div>
-      <div class="key black" data-note="G#">G#</div>
-      <div class="key white" data-note="A">A</div>
-      <div class="key black" data-note="A#">A#</div>
-      <div class="key white" data-note="B">B</div>
+      <div class="key white" data-key="a" data-note="C4">A-C4</div>
+      <div class="key black" data-key="w" data-note="C#4">W-C#</div>
+      <div class="key white" data-key="s" data-note="D4">S-D4</div>
+      <div class="key black" data-key="e" data-note="D#4">E-D#</div>
+      <div class="key white" data-key="d" data-note="E4">D-E4</div>
+      <div class="key white" data-key="f" data-note="F4">F-F4</div>
+      <div class="key black" data-key="t" data-note="F#4">T-F#</div>
+      <div class="key white" data-key="g" data-note="G4">G-G4</div>
+      <div class="key black" data-key="y" data-note="G#4">Y-G#</div>
+      <div class="key white" data-key="h" data-note="A4">H-A4</div>
+      <div class="key black" data-key="u" data-note="A#4">U-A#</div>
+      <div class="key white" data-key="j" data-note="B4">J-B4</div>
+      <div class="key white" data-key="k" data-note="C5">K-C5</div>
     </div>
   </body>
 </html>
 
 <!-- 
- current step:
-   - This was a lot of fun. Can't wait to add the sound playback feature
+ steps:
+   - going with audiofiles right away feels ghetto and lazy, we'll try Tone.js and some of the other ones, if it
+   absolutely refuses to work or is too much trouble, we'll go with direct files.
+-->
+
+<!-- 
+
 -->
