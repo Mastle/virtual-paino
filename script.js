@@ -35,7 +35,8 @@ document.body.addEventListener("click", async () => {
 
 
 
-/* current step: 
+/* current step:
+  -- [ISSUE] : each time the body is clicked a new audio context is started which makes the piano louder! how to stop this? 
   -- The playback system is nearly complete. I need to figure out how to increase the quality of the playback sound
   -- I think that might be enough for this project? I think I'll be ready to implement this in Harmony Hub and I'll simply take care of the CSS there
 
