@@ -8,7 +8,7 @@ body {
 .piano {
     display: flex;
     position: relative;
-    width: 840px; 
+    width: 1300px; 
     height: 300px;
     margin: 20px auto;
     background: #ddd;

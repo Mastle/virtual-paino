@@ -6,29 +6,70 @@
     <link rel="stylesheet" href="./style.css" />
     <script src="https://unpkg.com/tone"></script>
     <script defer src="./script.js"></script>
-    <title>Document</title>
+    <title>49-Key Piano</title>
   </head>
   <body>
     <div class="piano">
-      <div class="key white" data-key="a" data-note="C4">A-C4</div>
-      <div class="key black" data-key="w" data-note="C#4">W-C#</div>
-      <div class="key white" data-key="s" data-note="D4">S-D4</div>
-      <div class="key black" data-key="e" data-note="D#4">E-D#</div>
-      <div class="key white" data-key="d" data-note="E4">D-E4</div>
-      <div class="key white" data-key="f" data-note="F4">F-F4</div>
-      <div class="key black" data-key="t" data-note="F#4">T-F#</div>
-      <div class="key white" data-key="g" data-note="G4">G-G4</div>
-      <div class="key black" data-key="y" data-note="G#4">Y-G#</div>
-      <div class="key white" data-key="h" data-note="A4">H-A4</div>
-      <div class="key black" data-key="u" data-note="A#4">U-A#</div>
-      <div class="key white" data-key="j" data-note="B4">J-B4</div>
-      <div class="key white" data-key="k" data-note="C5">K-C5</div>
+      <!-- C2 to C6 (49 keys) -->
+      <div class="key white" data-key="z" data-note="C2">C2</div>
+      <div class="key black" data-key="s" data-note="C#2">C#</div>
+      <div class="key white" data-key="x" data-note="D2">D2</div>
+      <div class="key black" data-key="d" data-note="D#2">D#</div>
+      <div class="key white" data-key="c" data-note="E2">E2</div>
+      <div class="key white" data-key="v" data-note="F2">F2</div>
+      <div class="key black" data-key="g" data-note="F#2">F#</div>
+      <div class="key white" data-key="b" data-note="G2">G2</div>
+      <div class="key black" data-key="h" data-note="G#2">G#</div>
+      <div class="key white" data-key="n" data-note="A2">A2</div>
+      <div class="key black" data-key="j" data-note="A#2">A#</div>
+      <div class="key white" data-key="m" data-note="B2">B2</div>
+
+      <div class="key white" data-key="q" data-note="C3">C3</div>
+      <div class="key black" data-key="2" data-note="C#3">C#</div>
+      <div class="key white" data-key="w" data-note="D3">D3</div>
+      <div class="key black" data-key="3" data-note="D#3">D#</div>
+      <div class="key white" data-key="e" data-note="E3">E3</div>
+      <div class="key white" data-key="r" data-note="F3">F3</div>
+      <div class="key black" data-key="5" data-note="F#3">F#</div>
+      <div class="key white" data-key="t" data-note="G3">G3</div>
+      <div class="key black" data-key="6" data-note="G#3">G#</div>
+      <div class="key white" data-key="y" data-note="A3">A3</div>
+      <div class="key black" data-key="7" data-note="A#3">A#</div>
+      <div class="key white" data-key="u" data-note="B3">B3</div>
+
+      <div class="key white" data-key="i" data-note="C4">C4</div>
+      <div class="key black" data-key="9" data-note="C#4">C#</div>
+      <div class="key white" data-key="o" data-note="D4">D4</div>
+      <div class="key black" data-key="0" data-note="D#4">D#</div>
+      <div class="key white" data-key="p" data-note="E4">E4</div>
+      <div class="key white" data-key="[" data-note="F4">F4</div>
+      <div class="key black" data-key="=" data-note="F#4">F#</div>
+      <div class="key white" data-key="]" data-note="G4">G4</div>
+      <div class="key black" data-key="\" data-note="G#4">G#</div>
+      <div class="key white" data-key=";" data-note="A4">A4</div>
+      <div class="key black" data-key="'" data-note="A#4">A#</div>
+      <div class="key white" data-key="Enter" data-note="B4">B4</div>
+
+      <div class="key white" data-key="Shift" data-note="C5">C5</div>
+      <div class="key black" data-key="Z" data-note="C#5">C#</div>
+      <div class="key white" data-key="X" data-note="D5">D5</div>
+      <div class="key black" data-key="C" data-note="D#5">D#</div>
+      <div class="key white" data-key="V" data-note="E5">E5</div>
+      <div class="key white" data-key="B" data-note="F5">F5</div>
+      <div class="key black" data-key="N" data-note="F#5">F#</div>
+      <div class="key white" data-key="M" data-note="G5">G5</div>
+      <div class="key black" data-key="," data-note="G#5">G#</div>
+      <div class="key white" data-key="." data-note="A5">A5</div>
+      <div class="key black" data-key="/" data-note="A#5">A#</div>
+      <div class="key white" data-key="ShiftRight" data-note="B5">B5</div>
+
+      <div class="key white" data-key="Space" data-note="C6">C6</div>
     </div>
   </body>
 </html>
 
-<!-- 
-   step: 
-    - current step is in script.js file
-
+<!-- current step:
+      - For now, I can't make the piano sound better than this. I'll have to get much better audio samples once the development is finished (it's easy to replace down the line)
+      - 49 keys is too much. Follow the 37 keys model on musicca.com. 
+ 
 -->
