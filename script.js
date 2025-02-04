@@ -7,6 +7,9 @@ document.body.addEventListener("click", async function startAudio() {
 const piano = new Tone.Sampler({
     urls: {
         C1: "./audio-samples/C1.mp3",
+        D1: "./audio-samples/D1.mp3",
+        E1: "./audio-samples/E1.mp3"
+        
    
     },
     release: 1.2,
