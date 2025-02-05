@@ -6,11 +6,9 @@ document.body.addEventListener("click", async function startAudio() {
 
 const piano = new Tone.Sampler({
     urls: {
-        C1: "./audio-samples/C1.mp3",
-        D1: "./audio-samples/D1.mp3",
-        E1: "./audio-samples/E1.mp3"
-        
-   
+        C3: "./audio-samples/C3.mp3",
+        D3: "./audio-samples/D3.mp3",
+        E3: "./audio-samples/E3.mp3"
     },
     release: 1.2,
     attack: 0.05,
@@ -18,14 +16,14 @@ const piano = new Tone.Sampler({
 }).toDestination();
 
 const keyToNoteMap = {
-    z: "C1", s: "C#1", x: "D1", d: "D#1", c: "E1",
-    v: "F1", g: "F#1", b: "G1", h: "G#1", n: "A1",
-    j: "A#1", m: "B1", q: "C2", "2": "C#2", w: "D2",
-    "3": "D#2", e: "E2", r: "F2", "5": "F#2", t: "G2",
-    "6": "G#2", y: "A2", "7": "A#2", u: "B2", i: "C3",
-    "9": "C#3", o: "D3", "0": "D#3", p: "E3", "[": "F3",
-    "=": "F#3", "]": "G3", "\\": "G#3", ";": "A3", "'": "A#3",
-    Enter: "B3"
+    z: "C3", s: "C#3", x: "D3", d: "D#3", c: "E3",
+    v: "F3", g: "F#3", b: "G3", h: "G#3", n: "A3",
+    j: "A#3", m: "B3", q: "C4", "2": "C#4", w: "D4",
+    "3": "D#4", e: "E4", r: "F4", "5": "F#4", t: "G4",
+    "6": "G#4", y: "A4", "7": "A#4", u: "B4", i: "C5",
+    "9": "C#5", o: "D5", "0": "D#5", p: "E5", "[": "F5",
+    "=": "F#5", "]": "G5", "\\": "G#5", ";": "A5", "'": "A#5",
+    Enter: "B5"
 };
 
 const reverb = new Tone.Reverb(3).toDestination();
@@ -51,3 +49,4 @@ document.addEventListener("keyup", (event) => {
         activeKeys.delete(key); 
     }
 });
+``
