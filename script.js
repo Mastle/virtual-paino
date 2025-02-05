@@ -50,3 +50,26 @@ document.addEventListener("keyup", (event) => {
     }
 });
 ``
+
+
+
+
+/* 
+  current step:
+  - recording audio samples
+  - [ISSUE]: audio playback cuts off on "keyup" (there needs to be a delay so it can naturally reverberate)
+   
+*/
+
+/* 
+
+- for renaming: 
+
+cd "[address]"
+
+Get-ChildItem -File | Rename-Item -NewName { $_.Name -replace " sample", "" }
+
+
+Get-ChildItem -File | Rename-Item -NewName { $_.Name -replace "1 Raw", "3 Raw" }
+
+*/
