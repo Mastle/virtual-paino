@@ -43,7 +43,7 @@ const piano = new Tone.Sampler({
         Bb5: "./audio-samples/Bb5.mp3",
         B5: "./audio-samples/B5.mp3"
     },
-    release: 1.5, // Longer release for better fade out
+    release: 1.5, 
     attack: 0.05,
     baseUrl: ""
 }).toDestination();
@@ -65,70 +65,36 @@ const compressor = new Tone.Compressor(-30, 3).toDestination();
 
 piano.chain(compressor, eq, reverb);
 
-const activeKeys = new Set();
-
-function triggerNote(note) {
-    if (!activeKeys.has(note)) {
-        piano.triggerAttackRelease(note, "2n"); // Note will play fully with a natural fade
-        activeKeys.add(note);
-    }
-}
-
-function releaseNote(note) {
-    setTimeout(() => {
-        activeKeys.delete(note);
-    }, 500); // Small delay to prevent abrupt cut-off
-}
+const heldKeys = new Set(); 
 
 document.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase();
-    if (keyToNoteMap[key]) {
-        triggerNote(keyToNoteMap[key]);
+    if (keyToNoteMap[key] && !heldKeys.has(key)) {
+        piano.triggerAttack(keyToNoteMap[key]);
+        heldKeys.add(key);
     }
 });
 
 document.addEventListener("keyup", (event) => {
     const key = event.key.toLowerCase();
     if (keyToNoteMap[key]) {
-        releaseNote(keyToNoteMap[key]);
+        heldKeys.delete(key);
     }
 });
+
+
 
 document.querySelectorAll(".key").forEach((keyElement) => {
     keyElement.addEventListener("mousedown", () => {
         const note = keyElement.getAttribute("data-note");
-        triggerNote(note);
+        piano.triggerAttack(note); 
     });
 
-    keyElement.addEventListener("mouseup", () => {
-        const note = keyElement.getAttribute("data-note");
-        releaseNote(note);
-    });
-
-    keyElement.addEventListener("mouseleave", () => {
-        const note = keyElement.getAttribute("data-note");
-        releaseNote(note);
-    });
 });
 
 
 /* 
   current step:
-  - There is no way but to add the specific note sound files for all the keys
-    Add the ones that are finished and work on sampling the rest of the notes based off of these ones. You can always make it good later!
-   - Once the piano is fully functional, add it to the Harmony Hub MVP and then continue the project from there
-  - Add the visual aspect after converting to react
-*/
-
-/* 
-
-- for renaming: 
-
-cd "[address]"
-
-Get-ChildItem -File | Rename-Item -NewName { $_.Name -replace " sample", "" }
-
-
-Get-ChildItem -File | Rename-Item -NewName { $_.Name -replace "1 Raw", "3 Raw" }
-
+   - The piano seems to be finished. (ISSUE: I think the minor quirks such as the weird beep at the end of each note sound can be fixed after it's fully implemented in react)(using release methods no piano would only make the playback finish prematurely)
+   - convert the current the code to react and continue from there (making the piano pretty is the next step)
 */
