@@ -8,7 +8,8 @@ const piano = new Tone.Sampler({
     urls: {
         C3: "./audio-samples/C3.mp3",
         D3: "./audio-samples/D3.mp3",
-        E3: "./audio-samples/E3.mp3"
+        E3: "./audio-samples/E3.mp3",
+        C4: "./audio-samples/C4.mp3"
     },
     release: 1.2,
     attack: 0.05,
@@ -34,29 +35,61 @@ piano.chain(compressor, eq, reverb);
 
 const activeKeys = new Set();
 
+// Function to handle key press (keyboard or mouse)
+function triggerNote(note) {
+    if (!activeKeys.has(note)) {
+        piano.triggerAttack(note);
+        activeKeys.add(note);
+    }
+}
+
+// Function to handle key release (keyboard or mouse)
+function releaseNote(note) {
+    if (activeKeys.has(note)) {
+        piano.triggerRelease(note);
+        activeKeys.delete(note);
+    }
+}
+
+// Keyboard event listeners
 document.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase();
-    if (keyToNoteMap[key] && !activeKeys.has(key)) {
-        piano.triggerAttack(keyToNoteMap[key]);
-        activeKeys.add(key); 
+    if (keyToNoteMap[key]) {
+        triggerNote(keyToNoteMap[key]);
     }
 });
 
 document.addEventListener("keyup", (event) => {
     const key = event.key.toLowerCase();
     if (keyToNoteMap[key]) {
-        piano.triggerRelease(keyToNoteMap[key]);
-        activeKeys.delete(key); 
+        releaseNote(keyToNoteMap[key]);
     }
 });
-``
 
+// Mouse event listeners for piano keys
+document.querySelectorAll(".key").forEach((keyElement) => {
+    keyElement.addEventListener("mousedown", () => {
+        const note = keyElement.getAttribute("data-note");
+        triggerNote(note);
+    });
 
+    keyElement.addEventListener("mouseup", () => {
+        const note = keyElement.getAttribute("data-note");
+        releaseNote(note);
+    });
+
+    // Optional: Handle mouse leave to ensure notes are released
+    keyElement.addEventListener("mouseleave", () => {
+        const note = keyElement.getAttribute("data-note");
+        releaseNote(note);
+    });
+});
 
 
 /* 
   current step:
-  - recording audio samples
+  - you have enough audio samples for now - there is no time for recording the rest. 
+    Add the ones that are finished and work on sampling the rest of the notes based off of these ones. You can always make it good later!
   - [ISSUE]: audio playback cuts off on "keyup" (there needs to be a delay so it can naturally reverberate)
    
 */
