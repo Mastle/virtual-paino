@@ -8,7 +8,12 @@ const piano = new Tone.Sampler({
     urls: {
         C3: "./audio-samples/C3.mp3",
         D3: "./audio-samples/D3.mp3",
+        // C#3: "./audio-samples/C#3.mp3",
         E3: "./audio-samples/E3.mp3",
+        F3: "./audio-samples/F3.mp3",
+        G3: "./audio-samples/G3.mp3",
+        A3: "./audio-samples/A3.mp3",
+        B3: "./audio-samples/B3.mp3",
         C4: "./audio-samples/C4.mp3"
     },
     release: 1.2,
@@ -54,7 +59,7 @@ function releaseNote(note) {
 // Keyboard event listeners
 document.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase();
-    if (keyToNoteMap[key]) {
+        if (keyToNoteMap[key]) {
         triggerNote(keyToNoteMap[key]);
     }
 });
