@@ -7,28 +7,55 @@ document.body.addEventListener("click", async function startAudio() {
 const piano = new Tone.Sampler({
     urls: {
         C3: "./audio-samples/C3.mp3",
+        Db3: "./audio-samples/Db3.mp3",
         D3: "./audio-samples/D3.mp3",
-        // C#3: "./audio-samples/C#3.mp3",
+        Eb3: "./audio-samples/Eb3.mp3",
         E3: "./audio-samples/E3.mp3",
         F3: "./audio-samples/F3.mp3",
+        Gb3: "./audio-samples/Gb3.mp3",
         G3: "./audio-samples/G3.mp3",
+        Ab3: "./audio-samples/Ab3.mp3",
         A3: "./audio-samples/A3.mp3",
+        Bb3: "./audio-samples/Bb3.mp3",
         B3: "./audio-samples/B3.mp3",
-        C4: "./audio-samples/C4.mp3"
+        C4: "./audio-samples/C4.mp3",
+        Db4: "./audio-samples/Db4.mp3",
+        D4: "./audio-samples/D4.mp3",
+        Eb4: "./audio-samples/Eb4.mp3",
+        E4: "./audio-samples/E4.mp3",
+        F4: "./audio-samples/F4.mp3",
+        Gb4: "./audio-samples/Gb4.mp3",
+        G4: "./audio-samples/G4.mp3",
+        Ab4: "./audio-samples/Ab4.mp3",
+        A4: "./audio-samples/A4.mp3",
+        Bb4: "./audio-samples/Bb4.mp3",
+        B4: "./audio-samples/B4.mp3",
+        C5: "./audio-samples/C5.mp3",
+        Db5: "./audio-samples/Db5.mp3",
+        D5: "./audio-samples/D5.mp3",
+        Eb5: "./audio-samples/Eb5.mp3",
+        E5: "./audio-samples/E5.mp3",
+        F5: "./audio-samples/F5.mp3",
+        Gb5: "./audio-samples/Gb5.mp3",
+        G5: "./audio-samples/G5.mp3",
+        Ab5: "./audio-samples/Ab5.mp3",
+        A5: "./audio-samples/A5.mp3",
+        Bb5: "./audio-samples/Bb5.mp3",
+        B5: "./audio-samples/B5.mp3"
     },
-    release: 1.2,
+    release: 1.5, // Longer release for better fade out
     attack: 0.05,
     baseUrl: ""
 }).toDestination();
 
 const keyToNoteMap = {
-    z: "C3", s: "C#3", x: "D3", d: "D#3", c: "E3",
-    v: "F3", g: "F#3", b: "G3", h: "G#3", n: "A3",
-    j: "A#3", m: "B3", q: "C4", "2": "C#4", w: "D4",
-    "3": "D#4", e: "E4", r: "F4", "5": "F#4", t: "G4",
-    "6": "G#4", y: "A4", "7": "A#4", u: "B4", i: "C5",
-    "9": "C#5", o: "D5", "0": "D#5", p: "E5", "[": "F5",
-    "=": "F#5", "]": "G5", "\\": "G#5", ";": "A5", "'": "A#5",
+    z: "C3", s: "Db3", x: "D3", d: "Eb3", c: "E3",
+    v: "F3", g: "Gb3", b: "G3", h: "Ab3", n: "A3",
+    j: "Bb3", m: "B3", q: "C4", "2": "Db4", w: "D4",
+    "3": "Eb4", e: "E4", r: "F4", "5": "Gb4", t: "G4",
+    "6": "Ab4", y: "A4", "7": "Bb4", u: "B4", i: "C5",
+    "9": "Db5", o: "D5", "0": "Eb5", p: "E5", "[": "F5",
+    "=": "Gb5", "]": "G5", "\\": "Ab5", ";": "A5", "'": "Bb5",
     Enter: "B5"
 };
 
@@ -40,26 +67,22 @@ piano.chain(compressor, eq, reverb);
 
 const activeKeys = new Set();
 
-// Function to handle key press (keyboard or mouse)
 function triggerNote(note) {
     if (!activeKeys.has(note)) {
-        piano.triggerAttack(note);
+        piano.triggerAttackRelease(note, "2n"); // Note will play fully with a natural fade
         activeKeys.add(note);
     }
 }
 
-// Function to handle key release (keyboard or mouse)
 function releaseNote(note) {
-    if (activeKeys.has(note)) {
-        piano.triggerRelease(note);
+    setTimeout(() => {
         activeKeys.delete(note);
-    }
+    }, 500); // Small delay to prevent abrupt cut-off
 }
 
-// Keyboard event listeners
 document.addEventListener("keydown", (event) => {
     const key = event.key.toLowerCase();
-        if (keyToNoteMap[key]) {
+    if (keyToNoteMap[key]) {
         triggerNote(keyToNoteMap[key]);
     }
 });
@@ -71,7 +94,6 @@ document.addEventListener("keyup", (event) => {
     }
 });
 
-// Mouse event listeners for piano keys
 document.querySelectorAll(".key").forEach((keyElement) => {
     keyElement.addEventListener("mousedown", () => {
         const note = keyElement.getAttribute("data-note");
@@ -83,7 +105,6 @@ document.querySelectorAll(".key").forEach((keyElement) => {
         releaseNote(note);
     });
 
-    // Optional: Handle mouse leave to ensure notes are released
     keyElement.addEventListener("mouseleave", () => {
         const note = keyElement.getAttribute("data-note");
         releaseNote(note);
@@ -93,10 +114,10 @@ document.querySelectorAll(".key").forEach((keyElement) => {
 
 /* 
   current step:
-  - you have enough audio samples for now - there is no time for recording the rest. 
+  - There is no way but to add the specific note sound files for all the keys
     Add the ones that are finished and work on sampling the rest of the notes based off of these ones. You can always make it good later!
-  - [ISSUE]: audio playback cuts off on "keyup" (there needs to be a delay so it can naturally reverberate)
-   
+   - Once the piano is fully functional, add it to the Harmony Hub MVP and then continue the project from there
+  - Add the visual aspect after converting to react
 */
 
 /* 
