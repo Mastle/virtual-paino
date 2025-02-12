@@ -6,46 +6,46 @@ document.body.addEventListener("click", async function startAudio() {
 
 const piano = new Tone.Sampler({
     urls: {
-        C3: "./audio-samples/C3.mp3",
-        Db3: "./audio-samples/Db3.mp3",
-        D3: "./audio-samples/D3.mp3",
-        Eb3: "./audio-samples/Eb3.mp3",
-        E3: "./audio-samples/E3.mp3",
-        F3: "./audio-samples/F3.mp3",
-        Gb3: "./audio-samples/Gb3.mp3",
-        G3: "./audio-samples/G3.mp3",
-        Ab3: "./audio-samples/Ab3.mp3",
-        A3: "./audio-samples/A3.mp3",
-        Bb3: "./audio-samples/Bb3.mp3",
-        B3: "./audio-samples/B3.mp3",
-        C4: "./audio-samples/C4.mp3",
-        Db4: "./audio-samples/Db4.mp3",
-        D4: "./audio-samples/D4.mp3",
-        Eb4: "./audio-samples/Eb4.mp3",
-        E4: "./audio-samples/E4.mp3",
-        F4: "./audio-samples/F4.mp3",
-        Gb4: "./audio-samples/Gb4.mp3",
-        G4: "./audio-samples/G4.mp3",
-        Ab4: "./audio-samples/Ab4.mp3",
-        A4: "./audio-samples/A4.mp3",
-        Bb4: "./audio-samples/Bb4.mp3",
-        B4: "./audio-samples/B4.mp3",
-        C5: "./audio-samples/C5.mp3",
-        Db5: "./audio-samples/Db5.mp3",
-        D5: "./audio-samples/D5.mp3",
-        Eb5: "./audio-samples/Eb5.mp3",
-        E5: "./audio-samples/E5.mp3",
-        F5: "./audio-samples/F5.mp3",
-        Gb5: "./audio-samples/Gb5.mp3",
-        G5: "./audio-samples/G5.mp3",
-        Ab5: "./audio-samples/Ab5.mp3",
-        A5: "./audio-samples/A5.mp3",
-        Bb5: "./audio-samples/Bb5.mp3",
-        B5: "./audio-samples/B5.mp3"
+        C3: "C3.mp3",
+        Db3: "Db3.mp3",
+        D3: "D3.mp3",
+        Eb3: "Eb3.mp3",
+        E3: "E3.mp3",
+        F3: "F3.mp3",
+        Gb3: "Gb3.mp3",
+        G3: "G3.mp3",
+        Ab3: "Ab3.mp3",
+        A3: "A3.mp3",
+        Bb3: "Bb3.mp3",
+        B3: "B3.mp3",
+        C4: "C4.mp3",
+        Db4: "Db4.mp3",
+        D4: "D4.mp3",
+        Eb4: "Eb4.mp3",
+        E4: "E4.mp3",
+        F4: "F4.mp3",
+        Gb4: "Gb4.mp3",
+        G4: "G4.mp3",
+        Ab4: "Ab4.mp3",
+        A4: "A4.mp3",
+        Bb4: "Bb4.mp3",
+        B4: "B4.mp3",
+        C5: "C5.mp3",
+        Db5: "Db5.mp3",
+        D5: "D5.mp3",
+        Eb5: "Eb5.mp3",
+        E5: "E5.mp3",
+        F5: "F5.mp3",
+        Gb5: "Gb5.mp3",
+        G5: "G5.mp3",
+        Ab5: "Ab5.mp3",
+        A5: "A5.mp3",
+        Bb5: "Bb5.mp3",
+        B5: "B5.mp3"
     },
     release: 1.5, 
     attack: 0.05,
-    baseUrl: ""
+    baseUrl: "./audio-samples/"
 }).toDestination();
 
 const keyToNoteMap = {
@@ -59,11 +59,7 @@ const keyToNoteMap = {
     Enter: "B5"
 };
 
-const reverb = new Tone.Reverb(3).toDestination();
-const eq = new Tone.EQ3(-3, 2, 3).toDestination();
-const compressor = new Tone.Compressor(-30, 3).toDestination();
 
-piano.chain(compressor, eq, reverb);
 
 const heldKeys = new Set(); 
 
@@ -78,6 +74,7 @@ document.addEventListener("keydown", (event) => {
 document.addEventListener("keyup", (event) => {
     const key = event.key.toLowerCase();
     if (keyToNoteMap[key]) {
+        piano.triggerRelease(keyToNoteMap[key]);
         heldKeys.delete(key);
     }
 });
@@ -87,7 +84,17 @@ document.addEventListener("keyup", (event) => {
 document.querySelectorAll(".key").forEach((keyElement) => {
     keyElement.addEventListener("mousedown", () => {
         const note = keyElement.getAttribute("data-note");
-        piano.triggerAttack(note); 
+        piano.triggerAttack(note);
+    });
+
+    keyElement.addEventListener("mouseup", () => {
+        const note = keyElement.getAttribute("data-note");
+        piano.triggerRelease(note);
+    });
+
+    keyElement.addEventListener("mouseleave", () => {
+        const note = keyElement.getAttribute("data-note");
+        piano.triggerRelease(note);
     });
 
 });
@@ -97,4 +104,5 @@ document.querySelectorAll(".key").forEach((keyElement) => {
   current step:
    - The piano seems to be finished. (ISSUE: I think the minor quirks such as the weird beep at the end of each note sound can be fixed after it's fully implemented in react)(using release methods no piano would only make the playback finish prematurely)
    - convert the current the code to react and continue from there (making the piano pretty is the next step)
+   - It makes sense to do the final test with this piano after it's been implemented in harmony hub and all the other details (such as the visual aspect with CSS) are added
 */
