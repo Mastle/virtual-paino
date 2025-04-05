@@ -102,7 +102,7 @@ document.querySelectorAll(".key").forEach((keyElement) => {
 
 /* 
   current step:
-   - The piano seems to be finished. (ISSUE: I think the minor quirks such as the weird beep at the end of each note sound can be fixed after it's fully implemented in react)(using release methods no piano would only make the playback finish prematurely)
+   - The piano  is finished 
    - convert the current the code to react and continue from there (making the piano pretty is the next step)
    - It makes sense to do the final test with this piano after it's been implemented in harmony hub and all the other details (such as the visual aspect with CSS) are added
 */
